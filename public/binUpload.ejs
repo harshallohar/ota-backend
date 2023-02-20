@@ -1,0 +1,25 @@
+<%- include('includes/header.ejs') %>
+<script src="/uploadbinary.js" defer></script>
+<main>
+  <form action="/api/v1/uploadBin" method="post" enctype="multipart/form-data">
+    <label for="manufacturer">manufacturer:
+      <select name="manufacturer" id="select-manuracturer">
+        <% manufacturers.forEach(val => { %>
+        <option value="<%= val._id %>"> <%= val.name %> </option>
+        <% }) %>
+      </select>
+    </label>
+    <label for="batchId"> batches:
+      <select name="batchId" disabled id="select-batches"></select>
+    </label>
+    <label for="bin">Upload binary file:
+      <input type="file" name="bin" id="binUpload" required>
+    </label>
+    <label for="v">
+      v:
+      <input type="text" name="v">
+    </label>
+    <input type="submit" value="submit">
+  </form>
+</main>
+<%- include('includes/footer.ejs') %>

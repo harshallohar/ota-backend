@@ -1,0 +1,24 @@
+<%- include('includes/header.ejs') %>
+<main>
+  <% if (espList.length === 0) {%>
+  <p>Nothing to show</p>
+  <%} else {%>
+  <table>
+    <tr>
+      <td>Sl No</td>
+      <td>Name</td>
+      <td>EspId</td>
+      <td>Added Date</td>
+    </tr>
+    <% espList.forEach((val, ind) => { %>
+    <tr>
+      <td> <%= ind + 1 %> </td>
+      <td><a href="/esps/<%= val.id %>"><%= val.name %></a></td>
+      <td><%= val.espId %></td>
+      <td><%= val.dateAdded.toLocaleString('in') %></td>
+    </tr>
+    <%})%>
+  </table>
+  <%}%>
+</main>
+<%- include('includes/footer.ejs') %>

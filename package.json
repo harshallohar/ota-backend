@@ -1,0 +1,22 @@
+{
+  "name": "ota-backend",
+  "version": "1.0.0",
+  "description": "it is used to store the backend of data",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "anand",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "express-rate-limit": "^6.7.0",
+    "helmet": "^6.0.1",
+    "mongoose": "^6.9.2",
+    "morgan": "^1.10.0"
+  }
+}

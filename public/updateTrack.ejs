@@ -1,0 +1,26 @@
+<%- include('includes/header.ejs') %>
+<main>
+  <% if (trackItems.length === 0) { %>
+  <%= "nothing to show" %>
+  <% } else { %>
+  <table>
+    <tr>
+      <th>picID</th>
+      <th>dateUpdated</th>
+      <th>version</th>
+      <th>batch</th>
+      <th>esp</th>
+    </tr>
+    <% trackItems.forEach(function (item) { %>
+    <tr>
+      <td><%= item.picId %></td>
+      <td><%= new Date(item.otaDate).toLocaleString() %></td>
+      <td><%= item.binVersion.v %></td>
+      <td><a href="/batches/<%=item.batchId%>">batch🔗 </a></td>
+      <td><a href="/esps/<%=item.espId%>">esp🔗 </a></td>
+    </tr>
+    <% }) %>
+  </table>
+  <% } %>
+</main>
+<%- include('includes/footer.ejs') %>

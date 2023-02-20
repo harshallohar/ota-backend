@@ -1,0 +1,47 @@
+<%- include('includes/header.ejs') %>
+<main>
+  <p><a href="/manufacturers">Manufacturers</a></p>
+  <% if (!manufacturer) {%>
+  <p>Some error happened</p>
+  <%} else { %>
+  <p>Name : <%= manufacturer.name %></p>
+  <p>Date added : <%= manufacturer.addedDate.toLocaleString('in') %></p>
+  <% if (batches.length === 0) {%>
+  <p>No batches to show</p>
+  <%} else { %>
+  <table>
+    <tr>
+      <td>Sl No</td>
+      <td>Batch name</td>
+      <td>Added Date</td>
+    </tr>
+    <% batches.forEach((val, ind) => { %>
+    <tr>
+      <td> <%= ind + 1 %> </td>
+      <td><a href="/batches/<%= val._id.toString() %>"><%= val.name %></a></td>
+      <td><%= val.batchDate.toLocaleString('in') %></td>
+    </tr>
+    <%})%>
+  </table>
+  <%} if (esps.length === 0) {%>
+  <p>No esps to show</p>
+  <% } else { %>
+  <div>
+    <table>
+      <tr>
+        <td>Sl No</td>
+        <td>Esp name</td>
+        <td>Added Date</td>
+      </tr>
+      <% esps.forEach((val, ind) => { %>
+      <tr>
+        <td> <%= ind + 1 %> </td>
+        <td><a href="/esps/<%= val._id %>"><%= val.name %></a></td>
+        <td><%= val.dateAdded.toLocaleString('in') %></td>
+      </tr>
+      <%})%>
+    </table>
+  </div>
+  <% }}%>
+</main>
+<%- include('includes/footer.ejs') %>
