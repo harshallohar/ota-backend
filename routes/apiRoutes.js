@@ -1,5 +1,5 @@
 const express = require('express')
-const { updateStatus, getUpdate, uploadBin, addSingleManufacturer, getAllManufacturers, getBatches, addSingleBatch, addSingleEsp, addSinglePic } = require('../controller/api')
+const { updateStatus, getUpdate, uploadBin, addSingleManufacturer, getAllManufacturers, getBatches, addSingleBatch, addSingleEsp, addSinglePic, getPicsForBatch, deleteSingleManufacturer, deleteSingleBatch } = require('../controller/api')
 const router = new express.Router()
 
 /**
@@ -45,5 +45,12 @@ router.post('/addSinglePic', addSinglePic)
 router.get('/getAllManufacturers', getAllManufacturers)
 
 router.get('/getBatchesforManufacturer', getBatches)
+
+router.get('/getPicsforBatches', getPicsForBatch)
+
+// deleting the datas
+router.delete('/deleteManufacturer', deleteSingleManufacturer)
+
+router.delete('/deleteBatch', deleteSingleBatch);
 
 module.exports = router

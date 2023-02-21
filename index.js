@@ -9,9 +9,10 @@ const errorHandler = require('./middlewares/customError')
 const express_file_upload = require('express-fileupload')
 const helmet = require('helmet')
 const path = require('path')
+const cors = require('cors');
 // routes import
 const apiRoutes = require('./routes/apiRoutes')
-// const frontendRoutes = require('./routes/frontendRoutes')
+const frontendRoutes = require('./routes/frontendRoutes')
 const app = express()
 // for coloring text
 require('colors')
@@ -22,6 +23,7 @@ const limiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
 
+app.use(cors())
 app.use(limiter)
 app.use(helmet())
 //morgan logger
@@ -50,7 +52,7 @@ app.use(express_file_upload(expressFileUploadObj))
 // api routes
 app.use('/api/v1/', apiRoutes)
 // front end routes
-// app.use('/', frontendRoutes)
+app.use('/', frontendRoutes)
 
 //404 handler
 //executed when the path is not found
@@ -62,7 +64,7 @@ app.use((req, res, next) => {
 // error handler middleware
 app.use(errorHandler)
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5001
 let server = null;
 (async () => {
   //creating symbolic link to uploads in public directory
