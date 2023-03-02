@@ -13,6 +13,8 @@ const cors = require('cors');
 // routes import
 const apiRoutes = require('./routes/apiRoutes')
 const frontendRoutes = require('./routes/frontendRoutes')
+const userRoutes = require('./routes/userRoutes');
+const { checkAndCreate } = require('./startup')
 const app = express()
 // for coloring text
 require('colors')
@@ -51,6 +53,7 @@ app.use(express_file_upload(expressFileUploadObj))
 
 // api routes
 app.use('/api/v1/', apiRoutes)
+app.use('/api/v1/', userRoutes)
 // front end routes
 app.use('/', frontendRoutes)
 
@@ -69,6 +72,7 @@ let server = null;
 (async () => {
   //creating symbolic link to uploads in public directory
   // await symLinkForBinFiles(process.env.FILE_UPLOAD_PATH, path.join(__dirname, '/public/uploads'))
+  await checkAndCreate(process.env.FILE_UPLOAD_PATH)
   db_connection = await connect_db()
   server = app.listen(PORT, () => console.log(`listening at ${PORT} env: ${process.env.NODE_ENV || 'development'}`.yellow.italic.underline))
 })()

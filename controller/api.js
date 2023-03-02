@@ -73,6 +73,7 @@ exports.uploadBin = asyncHandler(async (req, res, next) => {
   if (!req.files) {
     return next(new ErrorResponse("please upload a file", 400));
   }
+  // console.log(req.files,"  ", req.body.v,req.body.batchId)
   const file = req.files.bin;
   // file validations
   // file type
@@ -108,7 +109,12 @@ exports.uploadBin = asyncHandler(async (req, res, next) => {
         );
       }
       //added this for frontend
-      return res.render("binSuccess", { file, bin, batch });
+      res.status(200).json({
+        success: true,
+        body: "",
+        error: "",
+      });
+      //return res.render("binSuccess", { file, bin, batch });
     }
   );
 });
@@ -118,6 +124,9 @@ exports.addSingleManufacturer = asyncHandler(async (req, res, next) => {
     console.log(req.body);
     await Manufacturer.create({
       name: req.body.name,
+      id: req.body.id,
+      password: req.body.password,
+      description: req.body.desc,
     });
     res.json({
       success: true,
