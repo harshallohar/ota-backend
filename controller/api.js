@@ -139,6 +139,7 @@ exports.addSingleManufacturer = asyncHandler(async (req, res, next) => {
     });
   }
 });
+
 //check whether batch with same name exists under a manufacturer
 exports.addSingleBatch = asyncHandler(async (req, res, next) => {
   const manufacturer = await Manufacturer.findById(req.body.manufacturerId);
@@ -251,6 +252,7 @@ exports.getBatches = asyncHandler(async (req, res, next) => {
   try {
     console.log(req.query.manufacturerId);
     const manufacturer = await Manufacturer.findById(req.query.manufacturerId);
+    console.log(manufacturer)
     if (manufacturer) {
       if (manufacturer.batches.length === 0) {
         res.json({
@@ -369,5 +371,39 @@ exports.deleteSingleBatch = asyncHandler(async (req, res, next) => {
       error: error.message,
     });
     console.log(error.message);
+  }
+});
+
+
+
+exports.espforSingleManufacturer = asyncHandler(async (req, res, next) => {
+  try {
+    console.log(req.query.manufacturerId);
+    const manufacturer = await Manufacturer.find({
+      _id: req.query.manufacturerId,
+    });
+    console.log(manufacturer[0].esps);
+    const esp = await ESP.find({ _id: { $in: manufacturer[0].esps } });
+    console.log(esp);
+    if (esp != null) {
+      res.status(200).json({
+        success: true,
+        body: esp ,
+        error: "",
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        body: "",
+        error: "",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      body: "",
+      error: error.message,
+    });
+    // console.log(error.message);
   }
 });
