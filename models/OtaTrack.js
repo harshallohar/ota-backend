@@ -21,14 +21,11 @@ const OtaTrackSchema = new mongoose.Schema({
     ref: 'Batch'
   },
   binVersion: {
-    type: mongoose.Types.ObjectId,
+    type: String,
     required: true,
-    ref: 'Bin'
   },
   prevBinVersion: {
-    type: mongoose.Types.ObjectId,
-    required: true,
-    ref: 'Bin'
+    type: String,
   },
 })
 

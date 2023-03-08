@@ -4,13 +4,11 @@ const ManufacturerSchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
-    required: true,
     minLength: 3,
     maxLength: 30
   },
   password: {
     type: String,
-    required: true,
     minLength: 6,
     maxLength: 20
   },
@@ -30,7 +28,6 @@ const ManufacturerSchema = new mongoose.Schema({
   },
   id: {
     type: String,
-    required: true,
   },
   batches: [{ type: mongoose.Types.ObjectId, ref: 'Batch' }],
   esps: [{ type: mongoose.Types.ObjectId, ref: 'ESP' }]

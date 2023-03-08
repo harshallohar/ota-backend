@@ -16,17 +16,18 @@ exports.login = async (req, res) => {
               addedDate: e["addedDate"],
               type: e.type,
             });
-          }} else if (e.password === req.body.password) {
-            res.status(200).json({
-              email: e.id,
-              name: e.name,
-              id: e["_id"],
-              addedDate: e["addedDate"],
-              type: e.type,
-            });
-          } else {
-            res.status(400).json({});
           }
+        } else if (e.password === req.body.password) {
+          res.status(200).json({
+            email: e.id,
+            name: e.name,
+            id: e["_id"],
+            addedDate: e["addedDate"],
+            type: e.type,
+          });
+        } else {
+          res.status(400).json({});
+        }
       });
     } else {
       res.status(400).json({});
