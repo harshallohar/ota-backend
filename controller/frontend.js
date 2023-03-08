@@ -60,7 +60,7 @@ exports.singleBatch = asyncHandler(async (req, res, next) => {
       }
     });
   }
-  console.log(singleBatch );
+  console.log(singleBatch);
   res.render("singleBatch", { singleBatch });
 });
 

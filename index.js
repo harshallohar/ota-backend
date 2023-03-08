@@ -73,6 +73,9 @@ let server = null;
   //creating symbolic link to uploads in public directory
   // await symLinkForBinFiles(process.env.FILE_UPLOAD_PATH, path.join(__dirname, '/public/uploads'))
   await checkAndCreate(process.env.FILE_UPLOAD_PATH)
+  await checkAndCreate(process.env.FILE_UPLOAD_PATH1)
+  await checkAndCreate(process.env.FILE_UPLOAD_PATH2)
+  await checkAndCreate(process.env.FILE_UPLOAD_PATH3)
   db_connection = await connect_db()
   server = app.listen(PORT, () => console.log(`listening at ${PORT} env: ${process.env.NODE_ENV || 'development'}`.yellow.italic.underline))
 })()

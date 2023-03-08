@@ -4,7 +4,7 @@
   "description": "it is used to store the backend of data",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "nodemon --signal SIGTERM index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "anand",
