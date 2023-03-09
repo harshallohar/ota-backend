@@ -233,13 +233,16 @@ exports.addSinglePic = asyncHandler(async (req, res, next) => {
 exports.getAllManufacturers = asyncHandler(async (req, res, next) => {
   try {
     const manufacturers = await Manufacturer.find();
-    res.json({
+    console.log(manufacturers);
+    let manu = manufacturers.filter((e) => e.type != "admin");
+    // console.log(i);
+    res.status(200).json({
       success: true,
-      body: manufacturers,
+      body: manu,
       error: "",
     });
   } catch (error) {
-    res.json({
+    res.status(500).json({
       success: false,
       body: "",
       error: error.message,
@@ -252,7 +255,7 @@ exports.getBatches = asyncHandler(async (req, res, next) => {
   try {
     console.log(req.query.manufacturerId);
     const manufacturer = await Manufacturer.findById(req.query.manufacturerId);
-    console.log(manufacturer)
+    console.log(manufacturer);
     if (manufacturer) {
       if (manufacturer.batches.length === 0) {
         res.json({
@@ -374,8 +377,6 @@ exports.deleteSingleBatch = asyncHandler(async (req, res, next) => {
   }
 });
 
-
-
 exports.espforSingleManufacturer = asyncHandler(async (req, res, next) => {
   try {
     console.log(req.query.manufacturerId);
@@ -388,7 +389,7 @@ exports.espforSingleManufacturer = asyncHandler(async (req, res, next) => {
     if (esp != null) {
       res.status(200).json({
         success: true,
-        body: esp ,
+        body: esp,
         error: "",
       });
     } else {
