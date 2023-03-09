@@ -9,7 +9,7 @@ const BinSchema = new mongoose.Schema({
   v: {
     type: String,
     required: true,
-    unique: true
+    // unique: true
   },
   path: {
     type: String,

@@ -14,7 +14,7 @@ const {
   deleteSingleBatch,
   espforSingleManufacturer,
 } = require("../controller/api");
-const { updateBin, getTestCase, updateBin2, getTestCase2, updateBin3, getTestCase3 } = require("../controller/v2/api");
+const { updateBin, getTestCase, updateBin2, getTestCase2, updateBin3, getTestCase3, uploadBin1, uploadBin3, uploadBin2 } = require("../controller/v2/api");
 const router = new express.Router();
 
 /**
@@ -72,12 +72,16 @@ router.delete("/deleteBatch", deleteSingleBatch);
 
 // test 1 routes
 router.get("/test1", updateBin);
+router.post('/uploadtest-1', uploadBin1)
 router.get("/report", getTestCase);
 // test 2 routes
 router.get("/test2", updateBin2);
+router.post('/uploadtest2', uploadBin2)
 router.get("/report2", getTestCase2);
 
 // test final routes
 router.get("/test3", updateBin3);
+router.post('/uploadtest2', uploadBin3)
 router.get("/report3", getTestCase3);
+
 module.exports = router;
