@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+#mongodb services
+    mongo_db:
+        container_name: mongo
+        image: mongo:latest
+        restart: always
+        volumes:
+          - mongo:/data/db
+    ota:
+        container_name: ota-server
+        build: .
+        ports:
+          - 5002:5002
+        
+        environment:
+          MONGO_U: mongodb://mongo:27017/ota
+          FILE_UPLOAD_PATH: /app/public/Bin
+          FILE_UPLOAD_PATH1: /app/public/Bin1
+          FILE_UPLOAD_PATH2: /app/public/Bin2
+          FILE_UPLOAD_PATH3: /app/public/Bin3
+          FILE_MAX_SIZE: 1000000
+          PORT: 5002
+
+
+volumes:
+   mongo: {}

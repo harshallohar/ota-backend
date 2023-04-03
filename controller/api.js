@@ -1,5 +1,5 @@
 const OtaTrack = require("../models/OtaTrack");
-const Bin = require("../models/Bin");
+const Bin = require("../models/Bin1");
 const ErrorResponse = require("../utils/ErrorResponse");
 const asyncHandler = require("../utils/asyncHandler");
 const path = require("path");
@@ -121,15 +121,20 @@ exports.uploadBin = asyncHandler(async (req, res, next) => {
 
 exports.addSingleManufacturer = asyncHandler(async (req, res, next) => {
   try {
-    console.log(req.body);
-    await Manufacturer.create({
+    // console.log(req.body);
+    const manu = await Manufacturer.create({
       name: req.body.name,
       id: req.body.id,
       password: req.body.password,
       description: req.body.desc,
     });
+    const batch = await Batch.create({name: "Batch1"})
+    manu.batches.push(batch._id);
+    await manu.save();
     res.json({
       success: true,
+      body: manu,
+      error: ""
     });
   } catch (error) {
     res.status(400).json({
@@ -233,7 +238,7 @@ exports.addSinglePic = asyncHandler(async (req, res, next) => {
 exports.getAllManufacturers = asyncHandler(async (req, res, next) => {
   try {
     const manufacturers = await Manufacturer.find();
-    console.log(manufacturers);
+    // console.log(manufacturers);
     let manu = manufacturers.filter((e) => e.type != "admin");
     // console.log(i);
     res.status(200).json({
@@ -251,11 +256,11 @@ exports.getAllManufacturers = asyncHandler(async (req, res, next) => {
 });
 
 exports.getBatches = asyncHandler(async (req, res, next) => {
-  console.log("InBatches");
+  // console.log("InBatches");
   try {
-    console.log(req.query.manufacturerId);
+    // console.log(req.query.manufacturerId);
     const manufacturer = await Manufacturer.findById(req.query.manufacturerId);
-    console.log(manufacturer);
+    // console.log(manufacturer);
     if (manufacturer) {
       if (manufacturer.batches.length === 0) {
         res.json({
@@ -269,7 +274,7 @@ exports.getBatches = asyncHandler(async (req, res, next) => {
             $in: manufacturer.batches,
           },
         });
-        res.json({
+        res.status(200).json({
           success: true,
           body: batches,
           error: "",

@@ -1,19 +1,16 @@
-const mongoose = require('mongoose')
 const express = require('express')
 // const symLinkForBinFiles = require('./startup')
 const { connect_db } = require('./db')
 const rateLimit = require('express-rate-limit')
 const morgan = require('morgan')
-// requiring custom error handler
-const errorHandler = require('./middlewares/customError')
 const express_file_upload = require('express-fileupload')
 const helmet = require('helmet')
 const path = require('path')
 const cors = require('cors');
 // routes import
-const apiRoutes = require('./routes/apiRoutes')
-const frontendRoutes = require('./routes/frontendRoutes')
+// const apiRoutes = require('./routes/apiRoutes')
 const userRoutes = require('./routes/userRoutes');
+const apiRoutes2 = require('./routes/apiRoutes2');
 const { checkAndCreate } = require('./startup')
 const app = express()
 // for coloring text
@@ -31,9 +28,6 @@ app.use(helmet())
 //morgan logger
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 
-// view engine
-app.set('view engine', 'ejs')
-app.set('views', 'public')
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
@@ -52,10 +46,10 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express_file_upload(expressFileUploadObj))
 
 // api routes
-app.use('/api/v1/', apiRoutes)
+// app.use('/api/v1/', apiRoutes)
 app.use('/api/v1/', userRoutes)
+app.use('/api/v2', apiRoutes2)
 // front end routes
-app.use('/', frontendRoutes)
 
 //404 handler
 //executed when the path is not found
@@ -64,10 +58,7 @@ app.use((req, res, next) => {
   res.render('404')
 })
 
-// error handler middleware
-app.use(errorHandler)
-
-const PORT = process.env.PORT || 5001
+const PORT = process.env.PORT || 5002
 let server = null;
 (async () => {
   //creating symbolic link to uploads in public directory
@@ -79,20 +70,3 @@ let server = null;
   db_connection = await connect_db()
   server = app.listen(PORT, () => console.log(`listening at ${PORT} env: ${process.env.NODE_ENV || 'development'}`.yellow.italic.underline))
 })()
-
-process.on('SIGTERM', async () => {
-  //close the db connection
-  await mongoose.connection.close()
-  console.log('db connection closed'.blue)
-  server.close(() => {
-    console.log('server closed'.america)
-    process.exit(0)
-  })
-})
-
-process.on('unhandledRejection', async (err) => {
-  console.log(`${err.message}`.red)
-  if (server)
-    server.close()
-  await mongoose.connection.close()
-})

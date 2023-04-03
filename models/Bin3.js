@@ -1,10 +1,10 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const BinSchema = new mongoose.Schema({
   addedDate: {
     type: Date,
     required: true,
-    default: Date.now
+    default: Date.now,
   },
   v: {
     type: String,
@@ -13,13 +13,13 @@ const BinSchema = new mongoose.Schema({
   },
   path: {
     type: String,
-    required: true
+    required: true,
   },
   batch: {
     type: mongoose.Types.ObjectId,
     required: true,
-    ref: 'Batch'
-  }
-})
+    ref: "Batch",
+  },
+});
 
-module.exports = mongoose.model('Bin1', BinSchema)
+module.exports = mongoose.model("Bin3", BinSchema);

@@ -22,4 +22,4 @@ const BinSchema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('Bin1', BinSchema)
+module.exports = mongoose.model('Bin2', BinSchema)

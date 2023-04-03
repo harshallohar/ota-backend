@@ -1,71 +1,34 @@
-const express = require("express");
 const {
-  updateStatus,
-  getUpdate,
-  uploadBin,
-  addSingleManufacturer,
+  addingSingleManufacturer,
+  addSingleEsp,
   getAllManufacturers,
   getBatches,
-  addSingleBatch,
-  addSingleEsp,
-  addSinglePic,
   getPicsForBatch,
+  espforSingleManufacturer,
   deleteSingleManufacturer,
   deleteSingleBatch,
-  espforSingleManufacturer,
-} = require("../controller/api");
-const {
-  updateBin,
   getTestCase,
-  updateBin2,
   getTestCase2,
-  updateBin3,
   getTestCase3,
-  uploadBin1,
-  uploadBin3,
-  uploadBin2,
 } = require("../controller/v2/api");
-const router = new express.Router();
+const {
+  updateBin1,
+  updateBin2,
+  updateBin3,
+} = require("../controller/v2/updatebin/api");
+const {
+  uploadBin1,
+  uploadBin2,
+  uploadBin3,
+} = require("../controller/v2/uploadbin/api");
 
-/**
- * auth: false
- * method: get,
- * responsebody: [
- * {
- *      picid, otaDate, binVersion
- * }
- * ]
- */
-router.get("/updateStatus", updateStatus);
+const router = require("express").Router();
 
-/**
- * method: post,
- * requestbody: {
- *      buf: <binarybuffer>,
- *      v: <String>
- * }
- */
-
-router.post("/uploadBin", uploadBin);
-
-/**
- * method: get,
- * requestbody : {
- *      emsId: <String>
- *      picId: <String>
- * }
- * responsebody : binaryFile
- */
-
-router.get("/getUpdate", getUpdate);
-
-router.post("/addSingleManufacturer", addSingleManufacturer);
-
-router.post("/addSingleBatch", addSingleBatch);
+router.post("/addSingleManufacturer", addingSingleManufacturer);
 
 router.post("/addSingleEsp", addSingleEsp);
 
-router.post("/addSinglePic", addSinglePic);
+// router.post("/addSinglePic", addSinglePic);
 
 router.get("/getAllManufacturers", getAllManufacturers);
 
@@ -81,7 +44,7 @@ router.delete("/deleteManufacturer", deleteSingleManufacturer);
 router.delete("/deleteBatch", deleteSingleBatch);
 
 // test 1 routes
-router.get("/test1", updateBin);
+router.get("/test1", updateBin1);
 router.post("/uploadtest-1", uploadBin1);
 router.get("/report", getTestCase);
 // test 2 routes
